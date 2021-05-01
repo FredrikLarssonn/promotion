@@ -18,11 +18,10 @@ namespace PromotionEngine
 
         public bool IsDiscountValidForCart(Cart cart)
         {
-            //if (cart.LineItems.Any(p => p.ArticleNumber == itemNumber && numberOfItems <= p.Quantity))
-            //{
-            //    var lineItem = cart.LineItems.Single(p => p.ArticleNumber == itemNumber);
-            //    return (lineItem.Quantity - lineItem.NumberOfDiscounts) >= numberOfItems;
-            //}
+            if (cart.LineItems.Any(p => p.ArticleNumber == itemNumberA && p.NumberOfDiscounts < p.Quantity))
+            {
+                return cart.LineItems.Any(p => p.ArticleNumber == itemNumberB && p.NumberOfDiscounts < p.Quantity);
+            }
 
             return false;
         }
@@ -31,9 +30,12 @@ namespace PromotionEngine
         {
             if (IsDiscountValidForCart(cart))
             {
-                var lineItem = cart.LineItems.Single(p => p.ArticleNumber == itemNumberA);
-                //lineItem.DiscountAmount += (lineItem.Price * numberOfItems) - fixedPrice;
-                lineItem.NumberOfDiscounts += 1;
+                var lineItemA = cart.LineItems.Single(p => p.ArticleNumber == itemNumberA);
+                var lineItemB = cart.LineItems.Single(p => p.ArticleNumber == itemNumberB);
+                lineItemA.DiscountAmount += lineItemA.Price - fixedPrice / 2;
+                lineItemB.DiscountAmount += lineItemB.Price - fixedPrice / 2;
+                lineItemB.NumberOfDiscounts += 1;
+                lineItemA.NumberOfDiscounts += 1;
             }
         }
     }
