@@ -118,13 +118,9 @@ namespace PromotionEngine.Tests
             };
 
             //Act
-            do
-            {
-                foreach (var promo in promotions)
-                {
-                    promo.AddDiscountToCart(cart);
-                }
-            } while (promotions.Any(p => p.IsDiscountValidForCart(cart)));
+            cart.AddDiscountsToCart(promotions);
+
+            Assert.AreEqual(350, cart.TotalSum);
         }
     }
 }

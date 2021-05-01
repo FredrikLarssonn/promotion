@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buy2DifferentItemsForFixedPricePromtionTests.cs" />
     <Compile Include="CartTests.cs" />
     <Compile Include="BuyXForFixedPriceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

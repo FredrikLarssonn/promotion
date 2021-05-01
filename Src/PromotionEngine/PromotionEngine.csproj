@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buy2DifferentItemsForFixedPricePromtion.cs" />
     <Compile Include="BuyXItemsForFixedPricePromtion.cs" />
     <Compile Include="CartExtensions.cs" />
     <Compile Include="IPromotion.cs" />
