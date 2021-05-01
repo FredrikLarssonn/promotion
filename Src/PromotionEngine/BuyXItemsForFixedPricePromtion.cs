@@ -33,6 +33,7 @@ namespace PromotionEngine
             {
                 var lineItem = cart.LineItems.Single(p => p.ArticleNumber == itemNumber);
                 lineItem.DiscountAmount += (lineItem.Price * numberOfItems) - fixedPrice;
+                lineItem.NumberOfDiscounts += numberOfItems;
             }
         }
     }

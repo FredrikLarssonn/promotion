@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 using Models;
 
 namespace PromotionEngine.Tests
@@ -7,11 +9,17 @@ namespace PromotionEngine.Tests
     [TestClass]
     public class BuyXItemsForFixedPriceTests
     {
+        private static IList<IPromotion> promotions = new List<IPromotion>
+        {
+            new BuyXItemsForFixedPricePromtion("A", 130, 3),
+            new BuyXItemsForFixedPricePromtion("B", 45, 2)
+        };
+
         [TestMethod]
         public void Three_A_For_130_IsDiscountValidForCart()
         {
             //Arrange
-            var promo = new BuyXItemsForFixedPricePromtion("A", 130, 3);
+            var promo = promotions.First();
             var cart = new Cart
             {
                 LineItems = new List<LineItem>
@@ -37,7 +45,7 @@ namespace PromotionEngine.Tests
         public void Three_A_For_130_IsDiscountValidForCart_False()
         {
             //Arrange
-            var promo = new BuyXItemsForFixedPricePromtion("A", 130, 3);
+            var promo = promotions.First();
             var cart = new Cart
             {
                 LineItems = new List<LineItem>
@@ -63,7 +71,7 @@ namespace PromotionEngine.Tests
         public void Three_A_For_130_CorrectAmount()
         {
             //Arrange
-            var promo = new BuyXItemsForFixedPricePromtion("A", 130, 3);
+            var promo = promotions.First();
             var cart = new Cart
             {
                 LineItems = new List<LineItem>
@@ -83,6 +91,40 @@ namespace PromotionEngine.Tests
 
             //assert
             Assert.AreEqual(130m,cart.TotalSum);
+        }
+
+        [TestMethod]
+        [Timeout(1000)]
+        public void Test_Two_Promotions_Against_Cart()
+        {
+
+            //Arrange
+            var cart = new Cart
+            {
+                LineItems = new List<LineItem>
+                {
+                    new LineItem
+                    {
+                        Quantity = 5,
+                        ArticleNumber = "A",
+                        Price = 50
+                    },
+                    new LineItem
+                    {
+                        Quantity = 5,
+                        ArticleNumber = "B",
+                    }
+                }
+            };
+
+            //Act
+            do
+            {
+                foreach (var promo in promotions)
+                {
+                    promo.AddDiscountToCart(cart);
+                }
+            } while (promotions.Any(p => p.IsDiscountValidForCart(cart)));
         }
     }
 }
