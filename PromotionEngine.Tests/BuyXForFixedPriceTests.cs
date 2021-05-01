@@ -113,6 +113,7 @@ namespace PromotionEngine.Tests
                     {
                         Quantity = 5,
                         ArticleNumber = "B",
+                        Price = 30
                     }
                 }
             };
