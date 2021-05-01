@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuyXItemsForFixedPricePromtion.cs" />
+    <Compile Include="CartExtensions.cs" />
     <Compile Include="IPromotion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
